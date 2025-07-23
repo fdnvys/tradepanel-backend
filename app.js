@@ -16,7 +16,11 @@ const app = express();
 const corsOptions = {
   origin:
     process.env.NODE_ENV === "production"
-      ? ["https://quantteknoloji.com", "https://www.quantteknoloji.com"]
+      ? [
+          "https://tradepanel-frontend.vercel.app",
+          "https://tradepanel-frontend-git-main-fdnvys.vercel.app",
+          "https://tradepanel-frontend-fdnvys.vercel.app",
+        ]
       : "http://localhost:3000",
   credentials: true,
   optionsSuccessStatus: 200,
