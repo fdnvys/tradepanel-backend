@@ -4,6 +4,8 @@ const path = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 
+console.log("App.js loading...");
+
 const corsOptions = {
   origin: [
     "https://tradepanel-frontend.vercel.app",
@@ -16,6 +18,8 @@ const corsOptions = {
 
 const app = express();
 
+console.log("Setting up middleware...");
+
 app.use(cors(corsOptions));
 app.options("*", cors(corsOptions)); // Preflight için
 
@@ -23,11 +27,18 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
+// Test endpoint
+app.get("/test", (req, res) => {
+  res.json({ message: "Backend is working!" });
+});
+
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
 const authRouter = require("./routes/auth");
 const accountsRouter = require("./routes/accounts");
 const pairsRouter = require("./routes/pairs");
+
+console.log("Setting up routes...");
 
 // API routes
 app.use("/api", indexRouter);
@@ -45,5 +56,7 @@ if (process.env.NODE_ENV === "production") {
 } else {
   app.use(express.static(path.join(__dirname, "public")));
 }
+
+console.log("App.js loaded successfully!");
 
 module.exports = app;
