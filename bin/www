@@ -4,13 +4,9 @@
  * Module dependencies.
  */
 
-console.log("Starting server...");
-
 var app = require("../app");
 var debug = require("debug")("backend:server");
 var http = require("http");
-
-console.log("App loaded, setting up port...");
 
 /**
  * Get port from environment and store in Express.
@@ -19,15 +15,11 @@ console.log("App loaded, setting up port...");
 var port = normalizePort(process.env.PORT || "5000");
 app.set("port", port);
 
-console.log("Port set to:", port);
-
 /**
  * Create HTTP server.
  */
 
 var server = http.createServer(app);
-
-console.log("HTTP server created");
 
 /**
  * Listen on provided port, on all network interfaces.
@@ -36,8 +28,6 @@ console.log("HTTP server created");
 server.listen(port);
 server.on("error", onError);
 server.on("listening", onListening);
-
-console.log("Server listening setup complete");
 
 /**
  * Normalize a port into a number, string, or false.
