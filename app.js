@@ -38,12 +38,11 @@ app.use("/api/auth", authRouter);
 app.use("/api/accounts", accountsRouter);
 app.use("/api/pairs", pairsRouter);
 
-// Production'da React build dosyalarını serve et
+// Production'da sadece API serve et, frontend build dosyalarını arama
 if (process.env.NODE_ENV === "production") {
-  app.use(express.static(path.join(__dirname, "../build")));
-
-  app.get("*", (req, res) => {
-    res.sendFile(path.join(__dirname, "../build", "index.html"));
+  // Sadece API endpoint'leri
+  app.get("/", (req, res) => {
+    res.json({ status: "OK", message: "Trade Panel API is running" });
   });
 } else {
   app.use(express.static(path.join(__dirname, "public")));
