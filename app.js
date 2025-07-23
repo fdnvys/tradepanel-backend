@@ -4,32 +4,30 @@ const path = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 
+const corsOptions = {
+  origin: [
+    "https://tradepanel-frontend.vercel.app",
+    "https://tradepanel-frontend-git-main-fdnvys.vercel.app",
+    "https://tradepanel-frontend-fdnvys.vercel.app",
+  ],
+  credentials: true,
+  optionsSuccessStatus: 200,
+};
+
+const app = express();
+
+app.use(cors(corsOptions));
+app.options("*", cors(corsOptions)); // Preflight için
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser());
+
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
 const authRouter = require("./routes/auth");
 const accountsRouter = require("./routes/accounts");
 const pairsRouter = require("./routes/pairs");
-
-const app = express();
-
-// Production için CORS ayarları
-const corsOptions = {
-  origin:
-    process.env.NODE_ENV === "production"
-      ? [
-          "https://tradepanel-frontend.vercel.app",
-          "https://tradepanel-frontend-git-main-fdnvys.vercel.app",
-          "https://tradepanel-frontend-fdnvys.vercel.app",
-        ]
-      : "http://localhost:3000",
-  credentials: true,
-  optionsSuccessStatus: 200,
-};
-
-app.use(cors(corsOptions));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
 
 // API routes
 app.use("/api", indexRouter);
