@@ -1,5 +1,7 @@
 const express = require("express");
 const cors = require("cors");
+const path = require("path");
+const cookieParser = require("cookie-parser");
 
 console.log("App.js loading...");
 
@@ -14,6 +16,8 @@ app.use(
 );
 
 app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser());
 
 console.log("Middleware setup complete");
 
@@ -35,6 +39,30 @@ app.get("/", (req, res) => {
   res.json({ status: "OK", message: "Trade Panel API is running" });
 });
 
-console.log("Routes setup complete");
+// API Routes
+console.log("Loading API routes...");
+
+try {
+  var indexRouter = require("./routes/index");
+  var usersRouter = require("./routes/users");
+  const authRouter = require("./routes/auth");
+  const accountsRouter = require("./routes/accounts");
+  const pairsRouter = require("./routes/pairs");
+
+  console.log("Routes loaded successfully");
+
+  // API routes
+  app.use("/api", indexRouter);
+  app.use("/api/users", usersRouter);
+  app.use("/api/auth", authRouter);
+  app.use("/api/accounts", accountsRouter);
+  app.use("/api/pairs", pairsRouter);
+
+  console.log("API routes setup complete");
+} catch (error) {
+  console.error("Error loading routes:", error);
+}
+
+console.log("App.js loaded successfully!");
 
 module.exports = app;
