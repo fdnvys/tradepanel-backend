@@ -7,8 +7,7 @@ db.serialize(() => {
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     username TEXT UNIQUE NOT NULL,
     password TEXT NOT NULL,
-    is_approved INTEGER DEFAULT 0,
-    is_pro INTEGER DEFAULT 0
+    is_approved INTEGER DEFAULT 0
   )`);
 
   // Accounts tablosu
@@ -66,9 +65,6 @@ db.serialize(() => {
     FOREIGN KEY (account_id) REFERENCES accounts (id),
     FOREIGN KEY (pair_id) REFERENCES pairs (id)
   )`);
-
-  // Mevcut users tablosuna is_pro kolonu ekle (eğer yoksa)
-  db.run(`ALTER TABLE users ADD COLUMN is_pro INTEGER DEFAULT 0`);
 });
 
 module.exports = db;
