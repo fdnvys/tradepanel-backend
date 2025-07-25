@@ -36,3 +36,4 @@ if (process.env.NODE_ENV !== "production") {
 
 module.exports = app;
 // Frontend çift API sorunu çözüldü - 07/25/2025 04:10:00
+// Frontend endpoint'ler düzeltildi - 07/25/2025 04:15:00
